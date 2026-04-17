@@ -87,9 +87,18 @@
                                             {{ $task->due_date?->format('M d, Y') ?? 'No due date' }}
                                         </td>
                                         <td class="whitespace-nowrap px-6 py-4 text-right text-sm">
-                                            <a href="{{ route('tasks.edit', $task) }}" class="font-semibold text-slate-700 transition hover:text-slate-900">
-                                                Edit
-                                            </a>
+                                            <div class="flex items-center justify-end gap-4">
+                                                <a href="{{ route('tasks.edit', $task) }}" class="font-semibold text-slate-700 transition hover:text-slate-900">
+                                                    Edit
+                                                </a>
+                                                <form method="POST" action="{{ route('tasks.destroy', $task) }}">
+                                                    @csrf
+                                                    @method('DELETE')
+                                                    <button type="submit" class="font-semibold text-rose-600 transition hover:text-rose-800" onclick="return confirm('Delete this task?')">
+                                                        Delete
+                                                    </button>
+                                                </form>
+                                            </div>
                                         </td>
                                     </tr>
                                 @endforeach

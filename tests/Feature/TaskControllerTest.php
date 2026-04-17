@@ -130,4 +130,27 @@ class TaskControllerTest extends TestCase
 
         $this->assertSame('Protected title', $task->fresh()->title);
     }
+
+    public function test_authenticated_user_can_delete_owned_task(): void
+    {
+        $user = User::factory()->create();
+        $task = Task::factory()->for($user)->create();
+
+        $response = $this->actingAs($user)->delete(route('tasks.destroy', $task));
+
+        $response->assertRedirect(route('tasks.index'));
+        $response->assertSessionHas('status', 'Task deleted successfully.');
+        $this->assertDatabaseMissing('tasks', ['id' => $task->id]);
+    }
+
+    public function test_user_cannot_delete_another_users_task(): void
+    {
+        $user = User::factory()->create();
+        $task = Task::factory()->create();
+
+        $response = $this->actingAs($user)->delete(route('tasks.destroy', $task));
+
+        $response->assertForbidden();
+        $this->assertDatabaseHas('tasks', ['id' => $task->id]);
+    }
 }

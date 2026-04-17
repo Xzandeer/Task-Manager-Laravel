@@ -91,8 +91,14 @@ class TaskController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Task $task)
+    public function destroy(Request $request, Task $task): RedirectResponse
     {
-        //
+        abort_unless($task->user_id === $request->user()->id, 403);
+
+        $task->delete();
+
+        return redirect()
+            ->route('tasks.index')
+            ->with('status', 'Task deleted successfully.');
     }
 }
