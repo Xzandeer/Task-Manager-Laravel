@@ -61,6 +61,7 @@
                                     <th class="px-6 py-4 text-left text-xs font-semibold uppercase tracking-[0.2em] text-slate-500">Description</th>
                                     <th class="px-6 py-4 text-left text-xs font-semibold uppercase tracking-[0.2em] text-slate-500">Status</th>
                                     <th class="px-6 py-4 text-left text-xs font-semibold uppercase tracking-[0.2em] text-slate-500">Due Date</th>
+                                    <th class="px-6 py-4 text-right text-xs font-semibold uppercase tracking-[0.2em] text-slate-500">Actions</th>
                                 </tr>
                             </thead>
                             <tbody class="divide-y divide-slate-200 bg-white">
@@ -84,6 +85,11 @@
                                         </td>
                                         <td class="whitespace-nowrap px-6 py-4 text-sm text-slate-600">
                                             {{ $task->due_date?->format('M d, Y') ?? 'No due date' }}
+                                        </td>
+                                        <td class="whitespace-nowrap px-6 py-4 text-right text-sm">
+                                            <a href="{{ route('tasks.edit', $task) }}" class="font-semibold text-slate-700 transition hover:text-slate-900">
+                                                Edit
+                                            </a>
                                         </td>
                                     </tr>
                                 @endforeach

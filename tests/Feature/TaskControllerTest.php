@@ -63,4 +63,71 @@ class TaskControllerTest extends TestCase
 
         $this->assertSame('2026-04-30', Task::firstOrFail()->due_date?->format('Y-m-d'));
     }
+
+    public function test_authenticated_user_can_view_edit_page_for_owned_task(): void
+    {
+        $user = User::factory()->create();
+        $task = Task::factory()->for($user)->create(['title' => 'Existing task']);
+
+        $response = $this->actingAs($user)->get(route('tasks.edit', $task));
+
+        $response->assertOk();
+        $response->assertSee('Edit Task');
+        $response->assertSee('Existing task');
+    }
+
+    public function test_user_cannot_view_edit_page_for_another_users_task(): void
+    {
+        $user = User::factory()->create();
+        $task = Task::factory()->create();
+
+        $response = $this->actingAs($user)->get(route('tasks.edit', $task));
+
+        $response->assertForbidden();
+    }
+
+    public function test_authenticated_user_can_update_owned_task(): void
+    {
+        $user = User::factory()->create();
+        $task = Task::factory()->for($user)->create([
+            'title' => 'Old title',
+            'description' => 'Old description',
+            'status' => 'pending',
+            'due_date' => '2026-04-25',
+        ]);
+
+        $response = $this->actingAs($user)->patch(route('tasks.update', $task), [
+            'title' => 'Updated title',
+            'description' => 'Updated description',
+            'status' => 'completed',
+            'due_date' => '2026-05-01',
+        ]);
+
+        $response->assertRedirect(route('tasks.index'));
+        $response->assertSessionHas('status', 'Task updated successfully.');
+
+        $task->refresh();
+
+        $this->assertSame('Updated title', $task->title);
+        $this->assertSame('Updated description', $task->description);
+        $this->assertSame('completed', $task->status);
+        $this->assertSame('2026-05-01', $task->due_date?->format('Y-m-d'));
+    }
+
+    public function test_user_cannot_update_another_users_task(): void
+    {
+        $user = User::factory()->create();
+        $task = Task::factory()->create(['title' => 'Protected title']);
+
+        $response = $this->actingAs($user)->patch(route('tasks.update', $task), [
+            'title' => 'Hacked title',
+            'description' => 'Should not update',
+            'status' => 'completed',
+            'due_date' => '2026-05-02',
+        ]);
+
+        $response->assertForbidden();
+
+        $this->assertSame('Protected title', $task->fresh()->title);
+    }
 }
