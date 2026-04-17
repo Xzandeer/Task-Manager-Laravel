@@ -15,10 +15,14 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        User::factory()->create([
-            'name' => 'Test User',
-            'email' => 'test@example.com',
-        ]);
+        $user = User::firstOrCreate(
+            ['email' => 'test@example.com'],
+            ['name' => 'Test User', 'password' => bcrypt('password')]
+        );
+
+        if ($user->tasks()->count() === 0) {
+            $user->tasks()->saveMany(\App\Models\Task::factory()->count(10)->make());
+        }
 
         $this->call(TaskSeeder::class);
     }
