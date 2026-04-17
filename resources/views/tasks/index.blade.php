@@ -36,7 +36,16 @@
                         <h3 class="text-lg font-semibold text-slate-900">Task List</h3>
                         <p class="text-sm text-slate-500">Manage your personal tasks here.</p>
                     </div>
+                    <a href="{{ route('tasks.create') }}" class="inline-flex items-center rounded-lg bg-slate-900 px-4 py-2 text-sm font-semibold text-white transition hover:bg-slate-700">
+                        Create Task
+                    </a>
                 </div>
+
+                @if (session('status'))
+                    <div class="border-b border-emerald-100 bg-emerald-50 px-6 py-3 text-sm font-medium text-emerald-700">
+                        {{ session('status') }}
+                    </div>
+                @endif
 
                 @if ($tasks->isEmpty())
                     <div class="px-6 py-12 text-center">
