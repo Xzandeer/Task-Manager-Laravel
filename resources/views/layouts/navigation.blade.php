@@ -1,4 +1,4 @@
-<nav x-data="{ open: false }" class="border-b border-slate-200 bg-white shadow-sm">
+<nav x-data="{ open: false }" class="border-b border-slate-200/80 bg-white/80 shadow-sm backdrop-blur">
     <!-- Primary Navigation Menu -->
     <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div class="flex h-16 justify-between">
@@ -6,10 +6,12 @@
                 <!-- Logo -->
                 <div class="shrink-0 flex items-center">
                     <a href="{{ route('tasks.index') }}" class="flex items-center gap-3">
-                        <x-application-logo class="block h-9 w-auto fill-current text-gray-800" />
+                        <div class="flex h-11 w-11 items-center justify-center rounded-2xl bg-cyan-50 text-cyan-700 ring-1 ring-cyan-100">
+                            <x-application-logo class="block h-7 w-auto fill-current" />
+                        </div>
                         <div>
-                            <p class="text-sm font-semibold uppercase tracking-[0.2em] text-slate-500">School Project</p>
-                            <p class="text-base font-semibold text-slate-900">Task Manager</p>
+                            <p class="text-sm font-semibold uppercase tracking-[0.2em] text-cyan-700">TaskFlow</p>
+                            <p class="text-base font-semibold text-slate-900">Plan your work clearly</p>
                         </div>
                     </a>
                 </div>
@@ -29,7 +31,7 @@
             <div class="hidden sm:flex sm:items-center sm:ms-6">
                 <x-dropdown align="right" width="48">
                     <x-slot name="trigger">
-                        <button class="inline-flex items-center rounded-md border border-transparent bg-white px-3 py-2 text-sm font-medium leading-4 text-slate-500 transition duration-150 ease-in-out hover:text-slate-700 focus:outline-none">
+                        <button class="inline-flex items-center rounded-xl border border-slate-200 bg-white/90 px-3 py-2 text-sm font-medium leading-4 text-slate-500 shadow-sm transition duration-150 ease-in-out hover:border-slate-300 hover:text-slate-700 focus:outline-none">
                             <div>{{ Auth::user()->name }}</div>
 
                             <div class="ms-1">
@@ -73,7 +75,7 @@
 
     <!-- Responsive Navigation Menu -->
     <div :class="{'block': open, 'hidden': ! open}" class="hidden sm:hidden">
-        <div class="pt-2 pb-3 space-y-1">
+        <div class="space-y-1 px-2 pb-3 pt-2">
             <x-responsive-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
                 {{ __('Dashboard') }}
             </x-responsive-nav-link>
@@ -83,10 +85,10 @@
         </div>
 
         <!-- Responsive Settings Options -->
-        <div class="pt-4 pb-1 border-t border-gray-200">
+        <div class="border-t border-slate-200 px-2 pb-2 pt-4">
             <div class="px-4">
-                <div class="font-medium text-base text-gray-800">{{ Auth::user()->name }}</div>
-                <div class="font-medium text-sm text-gray-500">{{ Auth::user()->email }}</div>
+                <div class="text-base font-medium text-slate-800">{{ Auth::user()->name }}</div>
+                <div class="text-sm font-medium text-slate-500">{{ Auth::user()->email }}</div>
             </div>
 
             <div class="mt-3 space-y-1">

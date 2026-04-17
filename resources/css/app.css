@@ -1,3 +1,63 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer base {
+    :root {
+        --tf-ink: 15 23 42;
+        --tf-muted: 100 116 139;
+        --tf-panel: 255 255 255;
+        --tf-line: 226 232 240;
+        --tf-accent: 14 116 144;
+        --tf-accent-soft: 207 250 254;
+        --tf-warm: 249 115 22;
+    }
+
+    body {
+        background:
+            radial-gradient(circle at top left, rgba(207, 250, 254, 0.9), transparent 28rem),
+            radial-gradient(circle at top right, rgba(254, 249, 195, 0.75), transparent 22rem),
+            linear-gradient(180deg, #f8fafc 0%, #eef2ff 100%);
+        color: rgb(var(--tf-ink));
+    }
+
+    ::selection {
+        background: rgba(14, 116, 144, 0.18);
+    }
+}
+
+@layer components {
+    .tf-shell {
+        @apply relative overflow-hidden;
+    }
+
+    .tf-shell::before {
+        content: '';
+        @apply pointer-events-none absolute inset-x-0 top-0 h-40;
+        background: linear-gradient(135deg, rgba(14, 116, 144, 0.14), rgba(249, 115, 22, 0.08));
+    }
+
+    .tf-panel {
+        @apply rounded-3xl border border-slate-200/80 bg-white/90 shadow-[0_18px_45px_-28px_rgba(15,23,42,0.45)] backdrop-blur;
+    }
+
+    .tf-input {
+        @apply mt-1 block w-full rounded-xl border-slate-200 bg-white/90 shadow-sm transition focus:border-cyan-700 focus:ring-cyan-700;
+    }
+
+    .tf-textarea {
+        @apply mt-1 block w-full rounded-xl border-slate-200 bg-white/90 shadow-sm transition focus:border-cyan-700 focus:ring-cyan-700;
+    }
+
+    .tf-select {
+        @apply mt-1 block w-full rounded-xl border-slate-200 bg-white/90 shadow-sm transition focus:border-cyan-700 focus:ring-cyan-700;
+    }
+
+    .tf-primary-btn {
+        @apply inline-flex items-center rounded-xl bg-slate-900 px-4 py-2.5 text-sm font-semibold text-white shadow-sm transition hover:-translate-y-0.5 hover:bg-cyan-800;
+    }
+
+    .tf-secondary-btn {
+        @apply inline-flex items-center rounded-xl border border-slate-200 bg-white px-4 py-2.5 text-sm font-semibold text-slate-600 transition hover:bg-slate-50;
+    }
+}

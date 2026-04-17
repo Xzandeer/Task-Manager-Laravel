@@ -5,7 +5,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="csrf-token" content="{{ csrf_token() }}">
 
-        <title>{{ config('app.name', 'Laravel') }}</title>
+        <title>{{ config('app.name', 'TaskFlow') }}</title>
 
         <!-- Fonts -->
         <link rel="preconnect" href="https://fonts.bunny.net">
@@ -14,13 +14,13 @@
         <!-- Scripts -->
         @vite(['resources/css/app.css', 'resources/js/app.js'])
     </head>
-    <body class="font-sans antialiased bg-slate-100 text-slate-900">
-        <div class="flex min-h-screen flex-col">
+    <body class="font-sans antialiased text-slate-900">
+        <div class="tf-shell flex min-h-screen flex-col">
             @include('layouts.navigation')
 
             <!-- Page Heading -->
             @isset($header)
-                <header class="border-b border-slate-200 bg-white/95 shadow-sm">
+                <header class="border-b border-slate-200/80 bg-white/75 shadow-sm backdrop-blur">
                     <div class="mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8">
                         {{ $header }}
                     </div>
@@ -32,10 +32,10 @@
                 {{ $slot }}
             </main>
 
-            <footer class="border-t border-slate-200 bg-white">
+            <footer class="border-t border-slate-200/80 bg-white/80 backdrop-blur">
                 <div class="mx-auto flex max-w-7xl items-center justify-between px-4 py-4 text-sm text-slate-500 sm:px-6 lg:px-8">
-                    <p>Task Manager</p>
-                    <p>{{ now()->year }} Final Laravel Project</p>
+                    <p class="font-semibold text-slate-700">TaskFlow</p>
+                    <p>{{ now()->year }} Personal task workspace</p>
                 </div>
             </footer>
         </div>

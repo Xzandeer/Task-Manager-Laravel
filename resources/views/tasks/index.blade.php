@@ -16,33 +16,33 @@
     <div class="py-8">
         <div class="mx-auto max-w-7xl space-y-6 px-4 sm:px-6 lg:px-8">
             <section class="grid gap-4 md:grid-cols-3">
-                <div class="rounded-2xl bg-white p-6 shadow-sm ring-1 ring-slate-200">
+                <div class="tf-panel p-6">
                     <p class="text-sm font-medium text-slate-500">Pending</p>
                     <p class="mt-3 text-3xl font-semibold text-amber-500">{{ $tasks->where('status', 'pending')->count() }}</p>
                 </div>
-                <div class="rounded-2xl bg-white p-6 shadow-sm ring-1 ring-slate-200">
+                <div class="tf-panel p-6">
                     <p class="text-sm font-medium text-slate-500">In Progress</p>
                     <p class="mt-3 text-3xl font-semibold text-sky-500">{{ $tasks->where('status', 'in_progress')->count() }}</p>
                 </div>
-                <div class="rounded-2xl bg-white p-6 shadow-sm ring-1 ring-slate-200">
+                <div class="tf-panel p-6">
                     <p class="text-sm font-medium text-slate-500">Completed</p>
                     <p class="mt-3 text-3xl font-semibold text-emerald-500">{{ $tasks->where('status', 'completed')->count() }}</p>
                 </div>
             </section>
 
-            <section class="overflow-hidden rounded-2xl bg-white shadow-sm ring-1 ring-slate-200">
+            <section class="tf-panel overflow-hidden">
                 <div class="flex items-center justify-between border-b border-slate-200 px-6 py-4">
                     <div>
                         <h3 class="text-lg font-semibold text-slate-900">Task List</h3>
                         <p class="text-sm text-slate-500">Manage your personal tasks here.</p>
                     </div>
-                    <a href="{{ route('tasks.create') }}" class="inline-flex items-center rounded-lg bg-slate-900 px-4 py-2 text-sm font-semibold text-white transition hover:bg-slate-700">
+                    <a href="{{ route('tasks.create') }}" class="tf-primary-btn">
                         Create Task
                     </a>
                 </div>
 
                 @if (session('status'))
-                    <div class="border-b border-emerald-100 bg-emerald-50 px-6 py-3 text-sm font-medium text-emerald-700">
+                    <div class="border-b border-emerald-100 bg-emerald-50/90 px-6 py-3 text-sm font-medium text-emerald-700">
                         {{ session('status') }}
                     </div>
                 @endif
@@ -55,7 +55,7 @@
                 @else
                     <div class="overflow-x-auto">
                         <table class="min-w-full divide-y divide-slate-200">
-                            <thead class="bg-slate-50">
+                            <thead class="bg-slate-50/80">
                                 <tr>
                                     <th class="px-6 py-4 text-left text-xs font-semibold uppercase tracking-[0.2em] text-slate-500">Title</th>
                                     <th class="px-6 py-4 text-left text-xs font-semibold uppercase tracking-[0.2em] text-slate-500">Description</th>
@@ -66,7 +66,7 @@
                             </thead>
                             <tbody class="divide-y divide-slate-200 bg-white">
                                 @foreach ($tasks as $task)
-                                    <tr class="align-top">
+                                    <tr class="align-top transition hover:bg-slate-50/80">
                                         <td class="whitespace-nowrap px-6 py-4 text-sm font-medium text-slate-900">
                                             {{ $task->title }}
                                         </td>
