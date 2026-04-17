@@ -76,6 +76,31 @@ class TaskControllerTest extends TestCase
         $response->assertSee('Existing task');
     }
 
+    public function test_authenticated_user_can_view_owned_task_details(): void
+    {
+        $user = User::factory()->create();
+        $task = Task::factory()->for($user)->create([
+            'title' => 'Task detail title',
+            'description' => 'Task detail description',
+        ]);
+
+        $response = $this->actingAs($user)->get(route('tasks.show', $task));
+
+        $response->assertOk();
+        $response->assertSee('Task detail title');
+        $response->assertSee('Task detail description');
+    }
+
+    public function test_user_cannot_view_another_users_task_details(): void
+    {
+        $user = User::factory()->create();
+        $task = Task::factory()->create();
+
+        $response = $this->actingAs($user)->get(route('tasks.show', $task));
+
+        $response->assertForbidden();
+    }
+
     public function test_user_cannot_view_edit_page_for_another_users_task(): void
     {
         $user = User::factory()->create();

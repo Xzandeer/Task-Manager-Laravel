@@ -68,7 +68,9 @@
                                 @foreach ($tasks as $task)
                                     <tr class="align-top transition hover:bg-slate-50/80">
                                         <td class="whitespace-nowrap px-6 py-4 text-sm font-medium text-slate-900">
-                                            {{ $task->title }}
+                                            <a href="{{ route('tasks.show', $task) }}" class="transition hover:text-cyan-700">
+                                                {{ $task->title }}
+                                            </a>
                                         </td>
                                         <td class="px-6 py-4 text-sm text-slate-600">
                                             {{ $task->description ?: 'No description provided.' }}
@@ -88,6 +90,9 @@
                                         </td>
                                         <td class="whitespace-nowrap px-6 py-4 text-right text-sm">
                                             <div class="flex items-center justify-end gap-4">
+                                                <a href="{{ route('tasks.show', $task) }}" class="font-semibold text-cyan-700 transition hover:text-cyan-900">
+                                                    View
+                                                </a>
                                                 <a href="{{ route('tasks.edit', $task) }}" class="font-semibold text-slate-700 transition hover:text-slate-900">
                                                     Edit
                                                 </a>

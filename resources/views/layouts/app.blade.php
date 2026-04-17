@@ -32,12 +32,6 @@
                 {{ $slot }}
             </main>
 
-            <footer class="border-t border-slate-200/80 bg-white/80 backdrop-blur">
-                <div class="mx-auto flex max-w-7xl items-center justify-between px-4 py-4 text-sm text-slate-500 sm:px-6 lg:px-8">
-                    <p class="font-semibold text-slate-700">TaskFlow</p>
-                    <p>{{ now()->year }} Personal task workspace</p>
-                </div>
-            </footer>
         </div>
     </body>
 </html>
