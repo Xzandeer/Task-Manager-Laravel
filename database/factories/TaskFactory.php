@@ -18,12 +18,14 @@ class TaskFactory extends Factory
      */
     public function definition(): array
     {
+        $dueDate = fake()->optional()->dateTimeBetween('today', '+1 month');
+
         return [
             'user_id' => User::factory(),
             'title' => fake()->sentence(3),
             'description' => fake()->optional()->paragraph(),
             'status' => fake()->randomElement(['pending', 'in_progress', 'completed']),
-            'due_date' => fake()->optional()->dateTimeBetween('today', '+1 month')->format('Y-m-d'),
+            'due_date' => $dueDate?->format('Y-m-d'),
         ];
     }
 }
